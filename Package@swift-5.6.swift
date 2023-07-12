@@ -7,6 +7,7 @@ let package = Package(
         .executable(name: "swiftformat", targets: ["CommandLineTool"]),
         .library(name: "SwiftFormat", targets: ["SwiftFormat"]),
         .plugin(name: "SwiftFormatPlugin", targets: ["SwiftFormatPlugin"]),
+        .plugin(name: "SwiftFormatBuildPlugin", targets: ["SwiftFormatBuildPlugin"]),
     ],
     targets: [
         .executableTarget(name: "CommandLineTool", dependencies: ["SwiftFormat"], path: "CommandLineTool"),
@@ -20,5 +21,9 @@ let package = Package(
                     ]
                 ),
                 dependencies: [.target(name: "CommandLineTool")]),
+
+        .plugin(name: "SwiftFormatBuildPlugin",
+                capability: .buildTool(),
+                dependencies: [.target(name: "CommandLineTool")])
     ]
 )
